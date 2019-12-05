@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Question } from '../question';
 import { TimerComponent } from '../timer/timer.component';
 import { ScoreComponent } from '../score/score.component';
+import { QuizServiceService } from '../quiz-service.service';
 
 @Component({
   selector: 'app-quiz',
@@ -10,26 +11,34 @@ import { ScoreComponent } from '../score/score.component';
 })
 export class QuizComponent implements OnInit {
 
-  questions: Question[] //(les questions à poser)
-  iQuestion = 0 //(l’indice de la question en cours)
-  currentQuestion: Question //(la question en cours)
-  answer: string //(la réponse)
-  found: boolean //(la réponse a été trouvée ou pas)
-  hasNext = true
-  timer: TimerComponent
-  score: ScoreComponent;
+  questions: Question[]; //(les questions à poser)
+  iQuestion = 0; //(l’indice de la question en cours)
+  currentQuestion: Question; //(la question en cours)
+  answer: string; //(la réponse)
+  found: boolean; //(la réponse a été trouvée ou pas)
+  hasNext = true;
+  timer = new TimerComponent;
+  score = new ScoreComponent;
+  temps: number;
+  error: string;
 
-  constructor() { }
+  constructor(private myService: QuizServiceService) { }
 
   ngOnInit() {
-    this.newGame();
-    // this.timer.oberserableTimer().s;
-    // this.score.score = 0;
+    // this.newGame();
+    // this.timer.oberserableTimer();
+    this.score.score = 0;
+    // this.myService.recupererQuestions().subscribe(
+    //   (questions: Question[]) => this.questions = questions, // 1ere opération : on prend les Todo et on les met dans la variable globale
+    //   error => this.error = error.message // (2eme opération : gestion des erreurs)
+    //   )
   }
 
   newGame() { //pour lancer une partie
-    // this.timer.startTimer();
-    // charger premierre question
+    // this.temps = this.timer.startTimer();
+    // console.log("on lance une partie")
+    // console.log(this.temps)
+
   }
 
   loadNextQuestion() { //pour charger la prochaine question
@@ -41,11 +50,10 @@ export class QuizComponent implements OnInit {
   }
 
   answerGiven(answer: string) { //pour proposer une réponse
-
-
+    console.log(answer)
   }
 
-  showAnswer() { //pour afficher la réponse
+  showAnswer() { //pour afficher la bonne réponse
 
   }
 

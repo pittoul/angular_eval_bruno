@@ -9,7 +9,7 @@ import { timer } from 'rxjs';
 export class TimerComponent implements OnInit {
 
   @Output()
-  update = new EventEmitter<void>();
+  compteARebours = new EventEmitter<number>();
 
   timeLeft: number = 1000;
   interval;
@@ -17,6 +17,7 @@ export class TimerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.startTimer()
   }
 
   oberserableTimer() {
@@ -25,16 +26,21 @@ export class TimerComponent implements OnInit {
       console.log(val, '-');
       this.subscribeTimer = this.timeLeft - val;
     });
+    console.log("il reste : " + this.timeLeft)
   }
-
+  
   startTimer() {
     this.interval = setInterval(() => {
+      this.compteARebours.emit(this.timeLeft);
       if (this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        this.timeLeft = 10;
+        this.pauseTimer();
+        // this.timeLeft = 1000;
+      console.log('La bonne réponse est (bonne réponse) + afficher Vous avez bien répondu/mal répondu')
       }
-    }, 100)
+    }, 10)
+
   }
 
   pauseTimer() {

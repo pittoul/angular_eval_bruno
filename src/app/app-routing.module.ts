@@ -10,7 +10,7 @@ const Routes: Routes = [
   // { path: 'articles/:id', component: ArticleComponent },
   // { path: 'articles', component: ArticleComponent },
   { path: '',
-  redirectTo: '',
+  redirectTo: '/home',
   pathMatch: 'full'
   },
   { path: '**', component: PageNotFoundComponent }
